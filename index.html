@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UVA 4</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">UVA 4 DyDWeb</div>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    <ul class="menu" id="menu">
+      <li><a href="#" class="active" data-section="home">Home</a></li>
+      <li><a href="#" data-section="acercaDe">Acerca De</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <section id="home">
+    <div id="chiste"></div>
+    <div class="btn-group">
+      <button id="prevBtn">Anterior</button>
+      <button id="nextBtn">Siguiente</button>
+    </div>
+  </section>
+
+  <section id="acercaDe" style="display:none;">
+    <h2>Acerca de mí</h2>
+    <p>Soy Javier Lavalle, cree este sitio web con el objetivo de desplegar el sitio en GitHub y Netlify para realizar la entrega de la UVA 4 de diseño y desarrollo web.</p>
+    <ul>
+      <li><a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://github.com/jlavalle-uade" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/javier-lavalle/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+    <p>Email: <a href="mailto:lavallejavier@outlook.com">lavallejavier@outlook.com</a></p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Javier Lavalle. UADE - Lic. en Gestion de IT. Todos los derechos reservados.
+</footer>
+
+<script>
+  // Menú desplegable en móvil
+  const menuToggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('menu');
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('open');
+  });
+
+  // Navegación entre secciones
+  const links = menu.querySelectorAll('a');
+  const homeSection = document.getElementById('home');
+  const acercaSection = document.getElementById('acercaDe');
+
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const section = link.getAttribute('data-section');
+
+      // Cambiar sección visible
+      if (section === 'home') {
+        homeSection.style.display = 'block';
+        acercaSection.style.display = 'none';
+      } else if (section === 'acercaDe') {
+        homeSection.style.display = 'none';
+        acercaSection.style.display = 'block';
+      }
+
+      // Actualizar link activo
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+
+      // Cerrar menú móvil al seleccionar
+      if (menu.classList.contains('open')) {
+        menu.classList.remove('open');
+      }
+    });
+  });
+
+  // Chistes
+  const chistes = [
+    "— ¿Qué le dice un jaguar a otro jaguar. — “Jaguar you”",
+    "— Papá, ¿qué se siente tener un hijo tan guapo? — No sé hijo, pregúntale a tu abuelo…",
+    "— ¿Qué le dice una taza a otra? —¿Qué taza ciendo?",
+    "— Me da un café con leche corto. — Se me ha roto la máquina, cambio.",
+    "— ¿Por qué lloraba el libro de matemáticas? — ¡Porque tenía muchos problemas!",
+    "— Josecito, ¿qué planeta va después de Marte? — Miércole.",
+    "— ¿Qué está al final de todo? — La O.",
+    "— Disculpa, ¿estoy bien maquillada? — No, todavía se te ve la cara.",
+    "— Mamá, mamá, en el colegio me llaman Facebook. — ¿Y tú qué les dices? — ¡Me gusta!",
+    "— A ella le gusta la gasolina… — ¿No puedes cantar algo más educativo? — A ella le gusta la mezcla de hidrocarburos derivados de petróleo…"
+  ];
+
+  let indice = 0;
+  const chisteDiv = document.getElementById('chiste');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function mostrarChiste(i) {
+    chisteDiv.textContent = chistes[i];
+  }
+
+  prevBtn.addEventListener('click', () => {
+    indice = (indice - 1 + chistes.length) % chistes.length;
+    mostrarChiste(indice);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    indice = (indice + 1) % chistes.length;
+    mostrarChiste(indice);
+  });
+
+  // Mostrar el primer chiste al cargar
+  mostrarChiste(indice);
+</script>
+
+</body>
+</html>
 
